@@ -1,25 +1,48 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import PropTypes from 'prop-types'
 import './App.css';
 
 function App() {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(()  =>  {
+    async function fetchData()  {
+      const result = await axios.get('http://localhost:3001/api/v1/posts',)
+        console.log(result)
+        console.log(result.data)
+        setPosts(result.data);
+      }
+      fetchData();
+      }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <table className="index">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>タイトル</th>
+        </tr>
+      </thead>
+      <tbody>
+        {posts.map((post) =>
+          <PostItem post={post} key={post.id} /> )}
+      </tbody>
+    </table>
   );
+}
+
+const PostItem = (props) => {
+  const {id, title} = props.post
+  return (
+    <tr>
+      <td>{id}</td>
+      <td>{title}</td>
+    </tr>
+  )
+}
+PostItem.propTypes = {
+  post: PropTypes.object.isRequired
 }
 
 export default App;
