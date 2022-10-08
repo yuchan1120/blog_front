@@ -1,48 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import PropTypes from 'prop-types'
-import './App.css';
+import { BrowserRouter, Link, Switch, Route } from "react-router-dom";
+import { New } from "./New";
+import { List } from "./List";
 
 function App() {
-  const [posts, setPosts] = useState([]);
-
-  useEffect(()  =>  {
-    async function fetchData()  {
-      const result = await axios.get('http://localhost:3001/api/v1/posts',)
-        console.log(result)
-        console.log(result.data)
-        setPosts(result.data);
-      }
-      fetchData();
-      }, []);
-
   return (
-    <table className="index">
-      <thead>
-        <tr>
-          <th>id</th>
-          <th>タイトル</th>
-        </tr>
-      </thead>
-      <tbody>
-        {posts.map((post) =>
-          <PostItem post={post} key={post.id} /> )}
-      </tbody>
-    </table>
+    <BrowserRouter>
+    <ul>
+      <br />
+      <li><Link to="/list">List</Link></li>
+      <br />
+      <li><Link to="/new">New</Link></li>
+    </ul>
+      <Switch>
+        <Route path="/list">
+          <List />
+        </Route>
+        <Route path="/new">
+          <New />
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
-}
-
-const PostItem = (props) => {
-  const {id, title} = props.post
-  return (
-    <tr>
-      <td>{id}</td>
-      <td>{title}</td>
-    </tr>
-  )
-}
-PostItem.propTypes = {
-  post: PropTypes.object.isRequired
 }
 
 export default App;
