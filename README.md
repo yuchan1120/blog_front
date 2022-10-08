@@ -5,3 +5,4 @@ Rails APIモードとReactでアプリを作る練習のため、このアプリ
 
 ##  参考サイト
 - [Rails APIモードとReact Hooksを使ってToDoリストを作る](https://zenn.dev/nicoryo/articles/20201214tech)
+- [【React】React Routerを使って簡単に画面遷移をしよう](https://qiita.com/YSasago/items/f00333b60a2b01be4bb7)
